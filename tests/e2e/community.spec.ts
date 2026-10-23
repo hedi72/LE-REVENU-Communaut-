@@ -1,6 +1,42 @@
 import { test, expect, type APIRequestContext } from '@playwright/test';
 import { readFileSync } from 'node:fs';
 const api = process.env.E2E_API_URL || 'http://localhost:1337';
+
+test('le défilement garde les colonnes latérales en place sur ordinateur', async ({ page }) => {
+  await page.goto('/');
+  await expect(page.locator('.discussion-link').first()).toBeVisible();
+
+  if ((page.viewportSize()?.width || 0) <= 1180) {
+    await page.mouse.move(200, 400);
+    await page.mouse.wheel(0, 500);
+    await expect.poll(() => page.evaluate(() => window.scrollY)).toBeGreaterThan(0);
+    return;
+  }
+
+  const main = page.locator('.layout > .main');
+  const fixedElements = page.locator('.hdr, .layout > .side, .layout > .right');
+  const positions = await fixedElements.evaluateAll((elements) =>
+    elements.map((element) => element.getBoundingClientRect().top),
+  );
+  await main.hover();
+  await page.mouse.wheel(0, 500);
+  await expect.poll(() => main.evaluate((element) => element.scrollTop)).toBeGreaterThan(0);
+  expect(await page.evaluate(() => window.scrollY)).toBe(0);
+  expect(
+    await fixedElements.evaluateAll((elements) =>
+      elements.map((element) => element.getBoundingClientRect().top),
+    ),
+  ).toEqual(positions);
+  expect(await page.locator('.side').evaluate((element) => element.scrollTop)).toBe(0);
+  expect(await page.locator('.right').evaluate((element) => element.scrollTop)).toBe(0);
+
+  const sidebar = page.locator('.side');
+  await sidebar.hover();
+  await page.mouse.wheel(0, 1500);
+  await expect.poll(() => sidebar.evaluate((element) => element.scrollTop)).toBeGreaterThan(0);
+  await expect(sidebar.locator('.nav-foot')).toBeInViewport();
+});
+
 function demoPassword() {
   if (process.env.E2E_PASSWORD) return process.env.E2E_PASSWORD;
   return (

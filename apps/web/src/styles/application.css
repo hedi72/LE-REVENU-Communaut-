@@ -1,4 +1,55 @@
 /* Functional additions; the visual system lives in maquette.css. */
+@media (min-width: 1181px) {
+  body {
+    display: flex;
+    flex-direction: column;
+    height: calc(100dvh - 16px);
+    overflow: hidden;
+  }
+
+  .sitebar,
+  .hdr {
+    flex-shrink: 0;
+  }
+
+  .page-content {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+  }
+
+  .page-content > .wrap:has(> .layout) {
+    height: 100%;
+  }
+
+  .layout {
+    height: 100%;
+    grid-template-rows: minmax(0, 1fr);
+    padding-bottom: 0;
+  }
+
+  .layout > .side,
+  .layout > .main,
+  .layout > .right {
+    height: 100%;
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+    scrollbar-width: thin;
+    padding-bottom: 24px;
+  }
+
+  .layout > .side {
+    position: static;
+  }
+
+  .layout > .side > *,
+  .layout > .main > *,
+  .layout > .right > * {
+    flex-shrink: 0;
+  }
+}
+
 .tcard {
   position: relative;
 }

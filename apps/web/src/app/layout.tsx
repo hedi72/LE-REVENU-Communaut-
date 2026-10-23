@@ -14,7 +14,7 @@ export default async function RootLayout({
   modal,
 }: {
   children: React.ReactNode;
-  modal?: React.ReactNode;
+  modal: React.ReactNode;
 }) {
   const [session, { data: community }] = await Promise.all([getSession(), getCommunity()]);
   return (
@@ -32,7 +32,7 @@ export default async function RootLayout({
           Aller au contenu
         </a>
         <Header session={session} community={community} />
-        {children}
+        <div className="page-content">{children}</div>
         <MobileNavigation member={Boolean(session)} />
         {modal}
       </body>
