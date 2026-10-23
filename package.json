@@ -15,7 +15,8 @@
     "typecheck": "npm run typecheck --workspaces",
     "test": "npm run test --workspaces",
     "test:e2e": "playwright test",
-    "check": "npm run typecheck && npm test",
+    "check:lockfile": "node scripts/check-native-lock.mjs",
+    "check": "npm run check:lockfile && npm run typecheck && npm test",
     "setup": "node scripts/setup.mjs",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
