@@ -1,0 +1,97 @@
+# Temporary online demo. Free PostgreSQL expires after 30 days.
+# See docs/DEPLOYMENT_RENDER.md before creating this Blueprint.
+databases:
+  - name: le-revenu-db
+    databaseName: lerevenu
+    user: lerevenu
+    plan: free
+    region: frankfurt
+    postgresMajorVersion: '16'
+    ipAllowList: []
+
+services:
+  - type: web
+    name: le-revenu-api
+    runtime: docker
+    plan: free
+    region: frankfurt
+    branch: main
+    dockerfilePath: ./apps/api/Dockerfile
+    dockerContext: .
+    healthCheckPath: /api/categories
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: HOST
+        value: 0.0.0.0
+      - key: PORT
+        value: '10000'
+      - key: DATABASE_HOST
+        fromDatabase:
+          name: le-revenu-db
+          property: host
+      - key: DATABASE_PORT
+        fromDatabase:
+          name: le-revenu-db
+          property: port
+      - key: DATABASE_NAME
+        fromDatabase:
+          name: le-revenu-db
+          property: database
+      - key: DATABASE_USERNAME
+        fromDatabase:
+          name: le-revenu-db
+          property: user
+      - key: DATABASE_PASSWORD
+        fromDatabase:
+          name: le-revenu-db
+          property: password
+      - key: DATABASE_SSL
+        value: 'false'
+      - key: APP_KEYS
+        generateValue: true
+      - key: API_TOKEN_SALT
+        generateValue: true
+      - key: ADMIN_JWT_SECRET
+        generateValue: true
+      - key: TRANSFER_TOKEN_SALT
+        generateValue: true
+      - key: JWT_SECRET
+        generateValue: true
+      - key: ENCRYPTION_KEY
+        generateValue: true
+      - key: SEED_DEMO
+        value: 'true'
+      - key: ALLOW_DEMO_IN_PRODUCTION
+        value: 'true'
+      - key: DEMO_PASSWORD
+        sync: false
+      - key: PUBLIC_URL
+        fromService:
+          type: web
+          name: le-revenu-api
+          envVarKey: RENDER_EXTERNAL_URL
+
+  - type: web
+    name: le-revenu-web
+    runtime: docker
+    plan: free
+    region: frankfurt
+    branch: main
+    dockerfilePath: ./apps/web/Dockerfile
+    dockerContext: .
+    healthCheckPath: /icon.svg
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: '10000'
+      - key: SESSION_SECURE
+        value: 'true'
+      # Free web services cannot receive private network traffic.
+      # Use the API's HTTPS URL, assigned by Render, instead of its internal host.
+      - key: STRAPI_URL
+        fromService:
+          type: web
+          name: le-revenu-api
+          envVarKey: RENDER_EXTERNAL_URL

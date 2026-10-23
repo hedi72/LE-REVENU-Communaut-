@@ -1,5 +1,9 @@
 # Communauté Le Revenu
 
+[Déployer la démo sur Render](https://render.com/deploy?repo=https://github.com/hedi72/LE-REVENU-Communaut-) · [Guide de déploiement](docs/DEPLOYMENT_RENDER.md)
+
+Le fichier `render.yaml` prépare Next.js, Strapi et PostgreSQL pour un test en ligne. L'offre gratuite comporte une mise en veille des services et une expiration de PostgreSQL après 30 jours. Les données de démonstration sont explicitement activées dans cet environnement.
+
 Application full stack réalisée à partir du cahier des charges et de la maquette HTML fournis. Le périmètre couvre l’accueil, le filtrage, le tri, la recherche, la pagination, le détail d’une discussion, la création et les réponses persistées. L’interface est en français et responsive.
 
 [Vérifications réalisées et aperçus de l’interface](docs/VALIDATION.md).
@@ -51,7 +55,7 @@ Au premier démarrage, `SEED_DEMO=true` initialise les données communautaires e
 
 Le mot de passe des deux comptes est la valeur **`DEMO_PASSWORD` dans `apps/api/.env`**. Il est généré localement et n’apparaît ni dans le dépôt ni dans le navigateur. Se connecter à partir du bouton « Se connecter ».
 
-L’initialisation est idempotente : les éléments déjà présents sont conservés. Changer `DEMO_PASSWORD` après création des comptes ne modifie pas leurs mots de passe existants ; utiliser l’administration Strapi pour les changer. Les données de démonstration sont interdites en production, sauf activation explicite de `ALLOW_DEMO_IN_PRODUCTION` pour l’environnement Docker local.
+L’initialisation est idempotente : les éléments déjà présents sont conservés. Changer `DEMO_PASSWORD` après création des comptes ne modifie pas leurs mots de passe existants ; utiliser l’administration Strapi pour les changer. Les données de démonstration sont interdites en production, sauf activation explicite de `ALLOW_DEMO_IN_PRODUCTION` pour Docker local et pour la configuration Render de test.
 
 ## Lancement de toute l’application dans Docker
 
