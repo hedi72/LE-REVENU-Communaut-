@@ -1,0 +1,29 @@
+{
+  "name": "le-revenu-community",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/*"
+  ],
+  "engines": {
+    "node": ">=22.19.0 <25"
+  },
+  "scripts": {
+    "dev:web": "npm run dev --workspace @lerevenu/web",
+    "dev:api": "npm run dev --workspace @lerevenu/api",
+    "build": "npm run build --workspace @lerevenu/api && npm run build --workspace @lerevenu/web",
+    "typecheck": "npm run typecheck --workspaces",
+    "test": "npm run test --workspaces",
+    "test:e2e": "playwright test",
+    "check": "npm run typecheck && npm test",
+    "setup": "node scripts/setup.mjs",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.58.0",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3",
+    "prettier": "^3.6.0"
+  }
+}

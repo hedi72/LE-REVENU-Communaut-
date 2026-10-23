@@ -1,0 +1,11 @@
+**/node_modules
+**/.next
+**/dist
+**/build
+**/.strapi
+**/.env*
+.git
+.local-postgres
+.dependencies-backup
+playwright-report
+test-results

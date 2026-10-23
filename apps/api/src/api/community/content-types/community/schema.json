@@ -1,0 +1,11 @@
+{
+  "kind": "singleType",
+  "collectionName": "communities",
+  "info": {
+    "singularName": "community",
+    "pluralName": "communities",
+    "displayName": "Community layout"
+  },
+  "options": { "draftAndPublish": false },
+  "attributes": { "content": { "type": "json", "required": true } }
+}

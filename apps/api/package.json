@@ -1,0 +1,28 @@
+{
+  "name": "@lerevenu/api",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "strapi develop --no-watch-admin",
+    "build": "strapi build",
+    "start": "strapi start",
+    "typecheck": "tsc --noEmit",
+    "test": "tsx --test tests/*.test.ts"
+  },
+  "dependencies": {
+    "@strapi/strapi": "5.59.0",
+    "@strapi/plugin-users-permissions": "5.59.0",
+    "@strapi/utils": "5.59.0",
+    "pg": "^8.16.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.30.0",
+    "styled-components": "^6.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0"
+  },
+  "strapi": {
+    "uuid": "cfa86ace-3d32-4c7a-b6f9-c8987a4efcb0"
+  }
+}

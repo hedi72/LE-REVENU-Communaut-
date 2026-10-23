@@ -1,0 +1,13 @@
+node_modules
+.dependencies-backup
+.local-postgres
+.next
+dist
+build
+.strapi
+package-lock.json
+apps/api/types/generated
+playwright-report
+test-results
+AGENTS.md
+.strapi-updater.json
