@@ -16,6 +16,7 @@
     flex: 1;
     min-height: 0;
     overflow-y: auto;
+    scrollbar-width: none;
   }
 
   .page-content > .wrap:has(> .layout) {
@@ -35,8 +36,15 @@
     min-height: 0;
     overflow-y: auto;
     overscroll-behavior-y: contain;
-    scrollbar-width: thin;
+    scrollbar-width: none;
     padding-bottom: 24px;
+  }
+
+  .page-content::-webkit-scrollbar,
+  .layout > .side::-webkit-scrollbar,
+  .layout > .main::-webkit-scrollbar,
+  .layout > .right::-webkit-scrollbar {
+    display: none;
   }
 
   .layout > .side {
