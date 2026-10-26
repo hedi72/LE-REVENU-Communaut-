@@ -34,7 +34,7 @@ Les appels à Strapi sont effectués par le serveur Next.js. Si vous ajoutez ens
 
 ## Limites de l'offre gratuite
 
-- Les services web s'arrêtent après 15 minutes sans trafic et peuvent prendre environ une minute à redémarrer. Si le frontend affiche une indisponibilité, ouvrez d'abord `/api/categories` sur l'API, attendez le JSON, puis rechargez le frontend : ses appels API expirent après 12 secondes.
+- Les services web s'arrêtent après 15 minutes sans trafic et peuvent prendre environ une minute à redémarrer. Le frontend affiche un écran de chargement pendant le réveil de l'API, puis ouvre automatiquement la communauté dès que les données arrivent. Sur Render, `STRAPI_READ_TIMEOUT_MS=90000` accorde jusqu'à 90 secondes au total par lecture, avec de nouvelles tentatives espacées pour les erreurs réseau et les réponses 502/503/504. Les erreurs de validation, les refus d'accès et les publications ne sont pas rejoués. En cas d'indisponibilité persistante, un bouton permet de réessayer. Le réveil du frontend lui-même reste géré par la page d'attente Render.
 - Les deux services partagent le quota de 750 heures gratuites mensuelles du workspace. Ils ne peuvent donc pas tous les deux fonctionner continuellement pendant un mois entier sur ce quota.
 - La base PostgreSQL gratuite expire après **30 jours** et ne propose pas de sauvegardes automatiques. Exportez les données à conserver avant l'expiration.
 - La mémoire disponible peut être insuffisante pour Strapi selon la charge. Si les logs indiquent un arrêt par manque de mémoire, choisissez une instance API plus grande après vérification du tarif, ou un autre hébergement.

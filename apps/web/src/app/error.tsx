@@ -1,21 +1,16 @@
 'use client';
 import Link from 'next/link';
-export default function ErrorPage({
-  reset,
-}: {
-  error: Error & { digest?: string };
-  reset: () => void;
-}) {
+export default function ErrorPage() {
   return (
     <main id="contenu" className="narrow-page">
       <section className="card empty" role="alert">
         <h1>Les échanges sont momentanément indisponibles.</h1>
-        <p>Veuillez réessayer dans un instant.</p>
+        <p>Le chargement prend plus de temps que prévu. Réessayez dans un instant.</p>
         <div className="error-actions">
-          <button className="button primary" onClick={reset}>
+          <button className="btn btn-primary" onClick={() => window.location.reload()}>
             Réessayer
           </button>
-          <Link className="button secondary" href="/">
+          <Link className="btn btn-secondary" href="/">
             Retour à l’accueil
           </Link>
         </div>

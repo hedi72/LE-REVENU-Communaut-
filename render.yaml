@@ -88,6 +88,8 @@ services:
         value: '10000'
       - key: SESSION_SECURE
         value: 'true'
+      - key: STRAPI_READ_TIMEOUT_MS
+        value: '90000'
       # Free web services cannot receive private network traffic.
       # Use the API's HTTPS URL, assigned by Render, instead of its internal host.
       - key: STRAPI_URL

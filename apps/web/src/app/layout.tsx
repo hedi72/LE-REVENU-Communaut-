@@ -1,22 +1,20 @@
 import type { Metadata } from 'next';
-import { Header } from '@/components/shell';
-import { MobileNavigation } from '@/components/design-controls';
-import { getSession } from '@/lib/session';
-import { getCommunity } from '@/lib/strapi';
+import { Suspense } from 'react';
+import { CommunityShell } from '@/components/community-shell';
+import { ServiceLoading } from '@/components/service-loading';
 import './globals.css';
 export const metadata: Metadata = {
   title: { default: 'Communauté Le Revenu', template: '%s | Le Revenu' },
   description:
     'Échangez avec les lecteurs du Revenu sur l’épargne, les placements et votre patrimoine.',
 };
-export default async function RootLayout({
+export default function RootLayout({
   children,
   modal,
 }: {
   children: React.ReactNode;
   modal: React.ReactNode;
 }) {
-  const [session, { data: community }] = await Promise.all([getSession(), getCommunity()]);
   return (
     <html lang="fr">
       <head>
@@ -28,13 +26,9 @@ export default async function RootLayout({
         />
       </head>
       <body>
-        <a className="skip-link" href="#contenu">
-          Aller au contenu
-        </a>
-        <Header session={session} community={community} />
-        <div className="page-content">{children}</div>
-        <MobileNavigation member={Boolean(session)} />
-        {modal}
+        <Suspense fallback={<ServiceLoading />}>
+          <CommunityShell modal={modal}>{children}</CommunityShell>
+        </Suspense>
       </body>
     </html>
   );
