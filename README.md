@@ -1,12 +1,12 @@
 # Communauté Le Revenu
 
-[Déployer la démo sur Render](https://render.com/deploy?repo=https://github.com/hedi72/LE-REVENU-Communaut-) · [Guide de déploiement](docs/DEPLOYMENT_RENDER.md)
+[Déployer la démo sur Render](https://render.com/deploy?repo=https://github.com/hedi72/LE-REVENU-Communaut-) · 
 
 Le fichier `render.yaml` prépare Next.js, Strapi et PostgreSQL pour un test en ligne. L'offre gratuite comporte une mise en veille des services et une expiration de PostgreSQL après 30 jours. Les données de démonstration sont explicitement activées dans cet environnement.
 
 Application full stack réalisée à partir du cahier des charges et de la maquette HTML fournis. Le périmètre couvre l’accueil, le filtrage, le tri, la recherche, la pagination, le détail d’une discussion, la création et les réponses persistées. L’interface est en français et responsive.
 
-[Vérifications réalisées et aperçus de l’interface](docs/VALIDATION.md).
+
 
 ## Prérequis
 
